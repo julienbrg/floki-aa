@@ -1,0 +1,87 @@
+{
+  "address": "0x4E57Df17bFd54915815Ac770bdbA61B298c35888",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "benefactor",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "beneficiary",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTax",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xfc70160b0790ebc02d495cd3174453fd9d5a0a177c8e218dc358b3e005acfba3",
+  "receipt": {
+    "to": null,
+    "from": "0xE45079d379712E51408B00496D232407D9449F79",
+    "contractAddress": "0x4E57Df17bFd54915815Ac770bdbA61B298c35888",
+    "transactionIndex": 0,
+    "gasUsed": "100713",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x000004b300000d5da24c26422cd998cb6d0ee9f23461b14db34dccc32f4eb847",
+    "transactionHash": "0xfc70160b0790ebc02d495cd3174453fd9d5a0a177c8e218dc358b3e005acfba3",
+    "logs": [],
+    "blockNumber": 1258412,
+    "cumulativeGasUsed": "100713",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "77ce1463b9d6f0c5bade9d62bc90699e",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"benefactor\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"getTax\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"This contract should only be used by protocols that collect taxes on certain transactions and want to set it to zero.\",\"kind\":\"dev\",\"methods\":{\"getTax(address,address,uint256)\":{\"params\":{\"amount\":\"Number of tokens in the transfer.\",\"benefactor\":\"Address of the benefactor.\",\"beneficiary\":\"Address of the beneficiary.\"},\"returns\":{\"_0\":\"Number of tokens to pay as tax. This is statically set to zero.\"}}},\"title\":\"Zero tax handler contract\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"getTax(address,address,uint256)\":{\"notice\":\"Get taxed tokens for transfers. This method always returns zero.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/tax/ZeroTaxHandler.sol\":\"ZeroTaxHandler\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/tax/ITaxHandler.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.11;\\r\\n\\r\\n/**\\r\\n * @title Tax handler interface\\r\\n * @dev Any class that implements this interface can be used for protocol-specific tax calculations.\\r\\n */\\r\\ninterface ITaxHandler {\\r\\n    /**\\r\\n     * @notice Get number of tokens to pay as tax.\\r\\n     * @param benefactor Address of the benefactor.\\r\\n     * @param beneficiary Address of the beneficiary.\\r\\n     * @param amount Number of tokens in the transfer.\\r\\n     * @return Number of tokens to pay as tax.\\r\\n     */\\r\\n    function getTax(\\r\\n        address benefactor,\\r\\n        address beneficiary,\\r\\n        uint256 amount\\r\\n    ) external view returns (uint256);\\r\\n}\\r\\n\",\"keccak256\":\"0xbd22c661e2b7d8a0dad21ea6cc9e69cc0a04a96372a0dc6f2305b759533b8b53\",\"license\":\"MIT\"},\"contracts/tax/ZeroTaxHandler.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.11;\\r\\n\\r\\nimport \\\"./ITaxHandler.sol\\\";\\r\\n\\r\\n/**\\r\\n * @title Zero tax handler contract\\r\\n * @dev This contract should only be used by protocols that collect taxes on certain transactions and want to set it to\\r\\n * zero.\\r\\n */\\r\\ncontract ZeroTaxHandler is ITaxHandler {\\r\\n    /**\\r\\n     * @notice Get taxed tokens for transfers. This method always returns zero.\\r\\n     * @param benefactor Address of the benefactor.\\r\\n     * @param beneficiary Address of the beneficiary.\\r\\n     * @param amount Number of tokens in the transfer.\\r\\n     * @return Number of tokens to pay as tax. This is statically set to zero.\\r\\n     */\\r\\n    function getTax(\\r\\n        address benefactor,\\r\\n        address beneficiary,\\r\\n        uint256 amount\\r\\n    ) external pure override returns (uint256) {\\r\\n        // Silence a few warnings. This will be optimized out by the compiler.\\r\\n        benefactor;\\r\\n        beneficiary;\\r\\n        amount;\\r\\n\\r\\n        return 0;\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0x80f34f559f33ee61cf2478c628fd4442c4054dc49883f0c2553b65759dcf287b\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060db8061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063d7ad21ac14602d575b600080fd5b60416038366004606e565b60009392505050565b60405190815260200160405180910390f35b80356001600160a01b0381168114606957600080fd5b919050565b600080600060608486031215608257600080fd5b6089846053565b92506095602085016053565b915060408401359050925092509256fea2646970667358221220667da52fde4169ec3d9204a5ccb6b0ef74fdbb5d83940c71de61d78c6c2e02bf64736f6c634300080b0033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063d7ad21ac14602d575b600080fd5b60416038366004606e565b60009392505050565b60405190815260200160405180910390f35b80356001600160a01b0381168114606957600080fd5b919050565b600080600060608486031215608257600080fd5b6089846053565b92506095602085016053565b915060408401359050925092509256fea2646970667358221220667da52fde4169ec3d9204a5ccb6b0ef74fdbb5d83940c71de61d78c6c2e02bf64736f6c634300080b0033",
+  "devdoc": {
+    "details": "This contract should only be used by protocols that collect taxes on certain transactions and want to set it to zero.",
+    "kind": "dev",
+    "methods": {
+      "getTax(address,address,uint256)": {
+        "params": {
+          "amount": "Number of tokens in the transfer.",
+          "benefactor": "Address of the benefactor.",
+          "beneficiary": "Address of the beneficiary."
+        },
+        "returns": {
+          "_0": "Number of tokens to pay as tax. This is statically set to zero."
+        }
+      }
+    },
+    "title": "Zero tax handler contract",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "getTax(address,address,uint256)": {
+        "notice": "Get taxed tokens for transfers. This method always returns zero."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}

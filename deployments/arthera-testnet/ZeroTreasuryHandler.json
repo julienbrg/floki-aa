@@ -1,0 +1,109 @@
+{
+  "address": "0x569e7177F39a1E263425Cf6F2595e68434D0EbA5",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "benefactor",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "beneficiary",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "afterTransferHandler",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "benefactor",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "beneficiary",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "beforeTransferHandler",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xa64f66ce2ef92bdeba5fdb0afda5b3995bb952037c584a00120ef1215b12a05f",
+  "receipt": {
+    "to": null,
+    "from": "0xE45079d379712E51408B00496D232407D9449F79",
+    "contractAddress": "0x569e7177F39a1E263425Cf6F2595e68434D0EbA5",
+    "transactionIndex": 0,
+    "gasUsed": "98553",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x000004b300000d785f2ab65df7d231df682721ccfc33ef8fa5c3395009b35830",
+    "transactionHash": "0xa64f66ce2ef92bdeba5fdb0afda5b3995bb952037c584a00120ef1215b12a05f",
+    "logs": [],
+    "blockNumber": 1258418,
+    "cumulativeGasUsed": "98553",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "77ce1463b9d6f0c5bade9d62bc90699e",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"benefactor\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"afterTransferHandler\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"benefactor\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"beforeTransferHandler\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"afterTransferHandler(address,address,uint256)\":{\"params\":{\"amount\":\"Number of tokens in the transfer.\",\"benefactor\":\"Address of the benefactor.\",\"beneficiary\":\"Address of the beneficiary.\"}},\"beforeTransferHandler(address,address,uint256)\":{\"params\":{\"amount\":\"Number of tokens in the transfer.\",\"benefactor\":\"Address of the benefactor.\",\"beneficiary\":\"Address of the beneficiary.\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"afterTransferHandler(address,address,uint256)\":{\"notice\":\"Perform operations after a transfer is executed.\"},\"beforeTransferHandler(address,address,uint256)\":{\"notice\":\"Perform operations before a transfer is executed.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/treasury/ZeroTreasuryHandler.sol\":\"ZeroTreasuryHandler\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/treasury/ITreasuryHandler.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.11;\\r\\n\\r\\n/**\\r\\n * @title Treasury handler interface\\r\\n * @dev Any class that implements this interface can be used for protocol-specific operations pertaining to the treasury.\\r\\n */\\r\\ninterface ITreasuryHandler {\\r\\n    /**\\r\\n     * @notice Perform operations before a transfer is executed.\\r\\n     * @param benefactor Address of the benefactor.\\r\\n     * @param beneficiary Address of the beneficiary.\\r\\n     * @param amount Number of tokens in the transfer.\\r\\n     */\\r\\n    function beforeTransferHandler(\\r\\n        address benefactor,\\r\\n        address beneficiary,\\r\\n        uint256 amount\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Perform operations after a transfer is executed.\\r\\n     * @param benefactor Address of the benefactor.\\r\\n     * @param beneficiary Address of the beneficiary.\\r\\n     * @param amount Number of tokens in the transfer.\\r\\n     */\\r\\n    function afterTransferHandler(\\r\\n        address benefactor,\\r\\n        address beneficiary,\\r\\n        uint256 amount\\r\\n    ) external;\\r\\n}\\r\\n\",\"keccak256\":\"0x03482ee27015d8cb3948062ab2a10c2dae25099a04912ab2d6c5763b4bb94ef5\",\"license\":\"MIT\"},\"contracts/treasury/ZeroTreasuryHandler.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.11;\\r\\n\\r\\nimport \\\"./ITreasuryHandler.sol\\\";\\r\\n\\r\\ncontract ZeroTreasuryHandler is ITreasuryHandler {\\r\\n    /**\\r\\n     * @notice Perform operations before a transfer is executed.\\r\\n     * @param benefactor Address of the benefactor.\\r\\n     * @param beneficiary Address of the beneficiary.\\r\\n     * @param amount Number of tokens in the transfer.\\r\\n     */\\r\\n    function beforeTransferHandler(\\r\\n        address benefactor,\\r\\n        address beneficiary,\\r\\n        uint256 amount\\r\\n    ) external {}\\r\\n\\r\\n    /**\\r\\n     * @notice Perform operations after a transfer is executed.\\r\\n     * @param benefactor Address of the benefactor.\\r\\n     * @param beneficiary Address of the beneficiary.\\r\\n     * @param amount Number of tokens in the transfer.\\r\\n     */\\r\\n    function afterTransferHandler(\\r\\n        address benefactor,\\r\\n        address beneficiary,\\r\\n        uint256 amount\\r\\n    ) external {}\\r\\n}\\r\\n\",\"keccak256\":\"0x34e93c538a421d6fa8a79ff1c046f3a684d165a7efebecc17be6fb760f453306\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060d18061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c8063c6512cc1146037578063e613b1cd146037575b600080fd5b604760423660046064565b505050565b005b80356001600160a01b0381168114605f57600080fd5b919050565b600080600060608486031215607857600080fd5b607f846049565b9250608b602085016049565b915060408401359050925092509256fea2646970667358221220db31ab0b0830aa9d9b996a33b462b844ae81d733a2e713271d93d51a05e6019364736f6c634300080b0033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c8063c6512cc1146037578063e613b1cd146037575b600080fd5b604760423660046064565b505050565b005b80356001600160a01b0381168114605f57600080fd5b919050565b600080600060608486031215607857600080fd5b607f846049565b9250608b602085016049565b915060408401359050925092509256fea2646970667358221220db31ab0b0830aa9d9b996a33b462b844ae81d733a2e713271d93d51a05e6019364736f6c634300080b0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "afterTransferHandler(address,address,uint256)": {
+        "params": {
+          "amount": "Number of tokens in the transfer.",
+          "benefactor": "Address of the benefactor.",
+          "beneficiary": "Address of the beneficiary."
+        }
+      },
+      "beforeTransferHandler(address,address,uint256)": {
+        "params": {
+          "amount": "Number of tokens in the transfer.",
+          "benefactor": "Address of the benefactor.",
+          "beneficiary": "Address of the beneficiary."
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "afterTransferHandler(address,address,uint256)": {
+        "notice": "Perform operations after a transfer is executed."
+      },
+      "beforeTransferHandler(address,address,uint256)": {
+        "notice": "Perform operations before a transfer is executed."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
