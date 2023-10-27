@@ -6,6 +6,11 @@ import {holders} from '../holders'
 
 async function main() {
 
+    // 1st batch until sent 50,000,000 units to: 0x7427143b6a5097b505e00ceffcc25ebca6baefac // loop #36380
+    // 2nd batch until sent 50,000,000 units to: 0x498c5b2cdda547ff4953c95d979506ce56b4d724 // loop #10312
+    // 3rd batch until sent 50,000,000 units to: 0x5f195d5418ba270f3ae1d8f7083ff1f510aabf73 // loop #3724
+    // batch 4 : sent 50,000,000 units to: 0x4afcd291d0ca5a17c4979cabe9f4a10d0a72018f // loop #3936
+
     function formatTimestamp(date: Date): string {
         const months = [
           'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -56,7 +61,9 @@ async function main() {
 
         console.log('\nholders.length:', formattedAddresses.length,'\n')
 
-        for (let id = 1 ; id < Number(formattedAddresses.length) ; id++) {
+        console.log("bal", await erc20.balanceOf(signer.address))
+
+        for (let id = 47186 ; id < Number(formattedAddresses.length) ; id++) {
         // for (let id = 0 ; id < Number(1) ; id++) {
 
             // console.log("formattedAddresses[id]", formattedAddresses[id])
@@ -64,8 +71,6 @@ async function main() {
             // console.log("formattedAddresses2", ["0xff821ea35fa15858fca33439dcc84887dd550b58","0x6d2450a6a293e7b1badf2bd33f7c5308d1f13650","0x6d2450a6a293e7b1badf2bd33f7c5308d1f13650"])
         // const newArray = ["0xff821ea35fa15858fca33439dcc84887dd550b58","0x6d2450a6a293e7b1badf2bd33f7c5308d1f13650","0x6d2450a6a293e7b1badf2bd33f7c5308d1f13650"]
         
-        console.log("bal", await erc20.balanceOf(signer.address))
-
         await erc20.transfer(formattedAddresses[id],ethers.parseEther('50000000'))
 
         console.log("sent 50,000,000 units to:", msg(formattedAddresses[id]), "// loop #"+ Number(id))
