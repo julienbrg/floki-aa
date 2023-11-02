@@ -6,11 +6,6 @@ import {holders} from '../holders'
 
 async function main() {
 
-    // 1st batch until sent 50,000,000 units to: 0x7427143b6a5097b505e00ceffcc25ebca6baefac // loop #36380
-    // 2nd batch until sent 50,000,000 units to: 0x498c5b2cdda547ff4953c95d979506ce56b4d724 // loop #10312
-    // 3rd batch until sent 50,000,000 units to: 0x5f195d5418ba270f3ae1d8f7083ff1f510aabf73 // loop #3724
-    // batch 4 : sent 50,000,000 units to: 0x4afcd291d0ca5a17c4979cabe9f4a10d0a72018f // loop #3936
-
     function formatTimestamp(date: Date): string {
         const months = [
           'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -27,74 +22,63 @@ async function main() {
         const formattedTimestamp = `${day} ${month} ${year} at ${hours % 12}:${minutes.toString().padStart(2, '0')} ${amOrPm} UTC`;
       
         return formattedTimestamp;
-      }
-      
-      const now = new Date(); // Current date and time
-      const formattedNow = formatTimestamp(now);
+    }
     
     try {
 
         const [signer] = await ethers.getSigners()
 
-
         const FlokiIsNotLate = await ethers.getContractFactory("FlokiIsNotLate")
 
         const addr = "0x80A75739E5aEA9211F2c053dFdd34F71b369A7Cd"
 
-        // console.log(addr)
-        // console.log(FlokiIsNotLate.interface)
-        // console.log(signer)
-
-        console.log("Start:", formatTimestamp(now))
+        console.log("Start:", formatTimestamp(new Date()))
 
         const erc20 = new ethers.Contract(addr, FlokiIsNotLate.interface, signer)
 
-        // Split the input text into lines and remove any leading/trailing whitespace
-        const lines = holders.trim().split('\n');
+        const amount = await erc20.balanceOf(signer.address)
+        console.log('my balance:', amount)
 
-        // Wrap each line in double quotes and create an array
-        const formattedAddresses = lines.map(address => address);
+        let pageLoop = 39
 
-        const list = `[${formattedAddresses.join(',\n')}]`
+        for(let i=4; i < pageLoop; i++ ) {
 
-        // await erc20.mint(ethers.parseEther('10848387.28'))
+            console.log('\nPage', i, '\n')
+            
+            const url = 'https://api.bscscan.com/api?module=token&action=tokenholderlist&contractaddress=0xfb5B838b6cfEEdC2873aB27866079AC55363D37E&page='+pageLoop+'&offset=388890&apikey=X2S1HA87E6EA6URA21GMVJGB3R5S1T4P3W'
+    
+            const response = await fetch(url); // Replace with your API endpoint URL
+            if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+                
+            // console.log('holders:', data.result)
 
-        console.log('\nholders.length:', formattedAddresses.length,'\n')
+            console.log('\ndata.result.length:', data.result.length,'\n')
+            // console.log('\ndata.result[1001].TokenHolderAddress:', data.result[1001].TokenHolderAddress)
+            // console.log('\ndata.result:', data.result)
 
-        console.log("bal", await erc20.balanceOf(signer.address))
-
-        for (let id = 47186 ; id < Number(formattedAddresses.length) ; id++) {
-        // for (let id = 0 ; id < Number(1) ; id++) {
-
-            // console.log("formattedAddresses[id]", formattedAddresses[id])
-            // console.log("formattedAddresses", formattedAddresses)
-            // console.log("formattedAddresses2", ["0xff821ea35fa15858fca33439dcc84887dd550b58","0x6d2450a6a293e7b1badf2bd33f7c5308d1f13650","0x6d2450a6a293e7b1badf2bd33f7c5308d1f13650"])
-        // const newArray = ["0xff821ea35fa15858fca33439dcc84887dd550b58","0x6d2450a6a293e7b1badf2bd33f7c5308d1f13650","0x6d2450a6a293e7b1badf2bd33f7c5308d1f13650"]
+            console.log("bal", await erc20.balanceOf(signer.address))
+            
+            for (let id = 0 ; id < data.result.length ; id++) {
         
-        await erc20.transfer(formattedAddresses[id],ethers.parseEther('50000000'))
+                await erc20.transfer(data.result[id].TokenHolderAddress, ethers.parseEther('50000000'))
 
-        console.log("sent 50,000,000 units to:", msg(formattedAddresses[id]), "// loop #"+ Number(id))
-        
+                console.log("sent 50,000,000 units to:", msg(data.result[id].TokenHolderAddress), "// loop #"+ Number(id))
+            
+            }
+            console.log("End:", formatTimestamp(new Date()))
         }
-        console.log("End:", formatTimestamp(now))
-
+            
+        } catch (e) {
+            console.error('Error fetching data:', e);
+            console.log("aidrop error:", e)
+            console.log("End:", formatTimestamp(new Date()))
+        }
         
-    } catch(e) {
-        console.log("aidrop error:", e)
-        console.log("End:", formatTimestamp(now))
-
     }
-    // const addr = holders
-    // const erc20 = new ethers.Contract(addr, Basic.interface, signer)
-    // const mint = await erc20.mint(await ethers.parseEther(amount.amount))
-    // const hash = mint.hash
-    // console.log(
-    //     "Minted",
-    //     msg(amount.amount),
-    //     "units. \n\nTx hash:",
-    //     msg(hash)
-    // )
-}
 
 main().catch(error => {
     console.error(error)
